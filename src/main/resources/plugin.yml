@@ -1,0 +1,5 @@
+name: AfkSender
+version: '${project.version}'
+main: net.azisaba.afksender.AfkSender
+api-version: 1.15
+depend: [ Essentials ]
