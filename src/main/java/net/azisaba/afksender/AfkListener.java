@@ -1,9 +1,13 @@
 package net.azisaba.afksender;
 
+import com.earth2me.essentials.Essentials;
 import net.ess3.api.events.AfkStatusChangeEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -11,9 +15,21 @@ import java.io.IOException;
 
 public class AfkListener implements Listener {
     private final AfkSender plugin;
+    private final Essentials ess;
 
     public AfkListener(AfkSender plugin) {
         this.plugin = plugin;
+        ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+        Player player = e.getPlayer();
+        // To prevent players from abusing the water flow, we check the rotation change
+        // This only works if you set cancelAfkOnMove=false in the essential config
+        if (ess != null && e.getTo() != null && e.getFrom().getYaw() != e.getTo().getYaw()) {
+            ess.getUser(player).updateActivity(false, AfkStatusChangeEvent.Cause.MOVE);
+        }
     }
 
     @EventHandler
