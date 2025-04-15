@@ -4,9 +4,11 @@ import com.earth2me.essentials.Essentials;
 import net.ess3.api.events.AfkStatusChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.io.ByteArrayOutputStream;
@@ -29,6 +31,14 @@ public class AfkListener implements Listener {
         // This only works if you set cancelAfkOnMove=false in the essential config
         if (ess != null && e.getTo() != null && e.getFrom().getYaw() != e.getTo().getYaw()) {
             ess.getUser(player).updateActivity(false, AfkStatusChangeEvent.Cause.MOVE);
+        }
+    }
+
+    @EventHandler
+    public void onBreak(BlockBreakEvent e) {
+        Player player = e.getPlayer();
+        if (ess != null) {
+            ess.getUser(player).updateActivity(false, AfkStatusChangeEvent.Cause.INTERACT);
         }
     }
 
