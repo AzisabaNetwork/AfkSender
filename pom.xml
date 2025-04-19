@@ -65,7 +65,6 @@
             <id>essentialsx</id>
             <url>https://repo.essentialsx.net/releases/</url>
         </repository>
-
     </repositories>
 
     <dependencies>
@@ -80,6 +79,12 @@
             <artifactId>EssentialsX</artifactId>
             <version>2.18.2</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.papermc</groupId>
+                    <artifactId>paperlib</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
