@@ -1,0 +1,4 @@
+# AfkSender Configuration
+
+# The name of the server to send AFK players to
+server-name: "lifeafk"

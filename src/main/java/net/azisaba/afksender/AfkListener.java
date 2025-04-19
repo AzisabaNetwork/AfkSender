@@ -53,7 +53,7 @@ public class AfkListener implements Listener {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (DataOutputStream out = new DataOutputStream(baos)) {
             out.writeUTF("Connect");
-            out.writeUTF("lifeafk"); // server name (hardcoded currently)
+            out.writeUTF(plugin.getServerName()); // server name from config
         }
 
         // ... and send the packet
