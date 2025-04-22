@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AfkSender extends JavaPlugin {
     private String serverName;
+    private boolean cancelAfkOnRotate;
 
     @Override
     public void onEnable() {
@@ -13,6 +14,7 @@ public final class AfkSender extends JavaPlugin {
 
         // Load server name from config
         serverName = getConfig().getString("server-name", "lifeafk");
+        cancelAfkOnRotate = getConfig().getBoolean("cancel-afk-on-rotate", true);
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         Bukkit.getPluginManager().registerEvents(new AfkListener(this), this);
@@ -24,5 +26,9 @@ public final class AfkSender extends JavaPlugin {
      */
     public String getServerName() {
         return serverName;
+    }
+
+    public boolean isCancelAfkOnRotate() {
+        return cancelAfkOnRotate;
     }
 }

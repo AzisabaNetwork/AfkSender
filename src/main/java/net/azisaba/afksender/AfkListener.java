@@ -24,6 +24,10 @@ public class AfkListener implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
+        if (!plugin.isCancelAfkOnRotate()) {
+            return;
+        }
+
         Player player = e.getPlayer();
         // To prevent players from abusing the water flow, we check the rotation change
         // This only works if you set cancelAfkOnMove=false in the essential config
