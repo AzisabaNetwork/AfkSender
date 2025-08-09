@@ -3,8 +3,11 @@ package net.azisaba.afksender;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collections;
+import java.util.List;
+
 public final class AfkSender extends JavaPlugin {
-    private String serverName;
+    private List<String> serverName;
     private boolean cancelAfkOnRotate;
 
     @Override
@@ -13,7 +16,11 @@ public final class AfkSender extends JavaPlugin {
         saveDefaultConfig();
 
         // Load server name from config
-        serverName = getConfig().getString("server-name", "lifeafk");
+        if (getConfig().isList("server-name")) {
+            serverName = getConfig().getStringList("server-name");
+        } else {
+            serverName = Collections.singletonList(getConfig().getString("server-name"));
+        }
         cancelAfkOnRotate = getConfig().getBoolean("cancel-afk-on-rotate", true);
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -24,7 +31,7 @@ public final class AfkSender extends JavaPlugin {
      * Gets the configured AFK server name
      * @return The server name to send AFK players to
      */
-    public String getServerName() {
+    public List<String> getServerName() {
         return serverName;
     }
 

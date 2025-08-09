@@ -2,5 +2,7 @@
 
 # The name of the server to send AFK players to
 server-name: "lifeafk"
+# Or, you cah have priority
+# server-name: ["lifeafk", "lifeafk-1"]
 
 cancel-afk-on-rotate: true
